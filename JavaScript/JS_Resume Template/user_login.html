@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <link rel="stylesheet" href="user_login_style.css">
+</head>
+
+<body>
+    <div class="user-login-container">
+        <h2>User Login</h2>
+        <div class="user-form-group">
+            <label for="user-username">Username</label>
+            <input type="text" id="user-username" placeholder="Enter your username" required>
+        </div>
+        <div class="user-form-group">
+            <label for="user-password">Password</label>
+            <input type="password" id="user-password" placeholder="Enter your password" required>
+        </div>
+        <div class="user-form-group">
+            <button onclick="userLogin()">Login</button>
+        </div>
+        <p id="user-login-error" class="user-login-error"></p>
+    </div>
+</body>
+
+</html>
+<script>
+    const userUsernameInput = document.getElementById('user-username');
+    const userPasswordInput = document.getElementById('user-password');
+    const userLoginError = document.getElementById('user-login-error');
+
+    function userLogin() {
+        const userUsername = userUsernameInput.value;
+        const userPassword = userPasswordInput.value;
+
+        if (userUsername.trim() === '' || userPassword.trim() === '') {
+            userLoginError.textContent = 'Please enter both username and password.';
+            return;
+        }
+
+        if (userUsername === 'root' && userPassword === 'root') {
+            localStorage.setItem('user-username', userUsername);
+            window.location = 'user_resume.html';
+        } else {
+            userLoginError.textContent = 'Invalid username/password.';
+        }
+    }
+
+    function userCheck() {
+        if (localStorage.getItem('user-username') !== null) {
+            window.location = 'user_resume.html';
+        }
+    }
+
+    userCheck();
+
+</script>
